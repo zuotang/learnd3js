@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style type="text/css">
+      body {
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="./js/d3.js"></script>
+    <script type="text/javascript">
+      var dataset = [50, 43, 120, 87, 99, 167, 142];
+      var width = 400;
+      var height = 400;
+      var svg = d3
+        .select("body")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+      //定义上下左右的边距
+      var padding = { top: 20, right: 20, bottom: 20, left: 20 };
+      //矩形所占的宽度(包括空白)
+      var rectStep = 35;
+      //矩形所占的宽度(不包括空白)
+      var rectWidth = 30;
+
+      var rect = svg
+        .selectAll(".myrect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("fill", "steelblue")
+        .attr("x", function(d, i) {
+          return padding.left + i * rectStep;
+        })
+        .attr("y", function(d) {
+          return height - padding.bottom - d;
+        })
+        .attr("width", rectWidth)
+        .attr("height", function(d) {
+          return d;
+        });
+
+      var text = svg
+        .selectAll(".mytext")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .attr("fill", "white")
+        .attr("font-size", "14px")
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) {
+          return padding.left + i * rectStep;
+        })
+        .attr("y", function(d) {
+          return height - padding.bottom - d;
+        })
+        .attr("dx", rectWidth / 2)
+        .attr("dy", "1em")
+        .text(function(d) {
+          return d;
+        });
+    </script>
+  </body>
+</html>
